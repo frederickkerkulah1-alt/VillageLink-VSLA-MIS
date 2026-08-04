@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 
-import MainLayout from "./layout/MainLayout";
+import MainLayout from "./Layout/MainLayout";
 
 // =====================================
 // Executive Dashboard
