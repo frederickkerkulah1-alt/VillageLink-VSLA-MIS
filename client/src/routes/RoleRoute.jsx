@@ -1,8 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 
 function RoleRoute({ children, role }) {
-
   const { user } = useAuth();
 
   if (!user) {
@@ -14,7 +13,6 @@ function RoleRoute({ children, role }) {
   }
 
   return children;
-
 }
 
 export default RoleRoute;
