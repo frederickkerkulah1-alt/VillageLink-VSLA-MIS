@@ -1,116 +1,77 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { login as loginService } from "../services/authService";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 
 function Login() {
-
   const navigate = useNavigate();
-
   const { login } = useAuth();
 
-  const [username, setUsername] = useState("");
-
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const user = loginService(username, password);
+    setError("");
+    setLoading(true);
 
-    if (!user) {
+    try {
+      const result = await loginService(email, password);
 
-      setError("Invalid username or password.");
+      login(result.user);
 
-      return;
-
-    }
-
-    login(user);
-
-    switch (user.role) {
-
-      case "administrator":
+      if (Number(result.user.role_id) === 5) {
         navigate("/");
-        break;
-
-      case "organization":
-        navigate("/organization-dashboard");
-        break;
-
-      case "project":
-        navigate("/project-dashboard");
-        break;
-
-      case "program":
-        navigate("/program-dashboard");
-        break;
-
-      case "field":
-        navigate("/field-dashboard");
-        break;
-
-      case "savingagent":
-        navigate("/saving-agent-dashboard");
-        break;
-
-      case "me":
-        navigate("/me-dashboard");
-        break;
-
-      default:
+      } else {
         navigate("/unauthorized");
+      }
 
+    } catch (err) {
+      setError(err.message || "Login failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
   };
 
   return (
-
     <div className="login-page">
-
       <h1>VillageLink MIS</h1>
-
       <h2>Login</h2>
 
       <form onSubmit={handleSubmit}>
-
         <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e)=>setUsername(e.target.value)}
+          type="email"
+          placeholder="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e)=>setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
-        <button type="submit">
-
-          Login
-
+        <button type="submit" disabled={loading}>
+          {loading ? "Signing in..." : "Login"}
         </button>
-
       </form>
 
-      <p style={{color:"red"}}>
-
-        {error}
-
-      </p>
-
+      {error && (
+        <p style={{ color: "red" }}>
+          {error}
+        </p>
+      )}
     </div>
-
   );
-
 }
 
 export default Login;

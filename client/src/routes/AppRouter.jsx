@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 // Layout
 import MainLayout from "../Layout/MainLayout";
@@ -33,32 +34,86 @@ import Monitoring from "../pages/Monitoring";
 import Livelihood from "../pages/Livelihood";
 import CashCount from "../pages/CashCount";
 
-// Reports
+// Reports and Settings
 import Reports from "../pages/Reports";
-
-// Settings
 import Settings from "../pages/Settings";
 
 // Not Found
 import NotFound from "../pages/NotFound";
+
+// Temporary screens for modules not yet developed
+function AdditionalModulePage() {
+  const location = useLocation();
+
+  const pageNames = {
+    "/organization-dashboard": "Organization Dashboard",
+    "/project-dashboard": "Project Dashboard",
+    "/program-dashboard": "Program Dashboard",
+    "/me-dashboard": "Monitoring and Evaluation Dashboard",
+    "/field-dashboard": "Field Officer Dashboard",
+    "/saving-agent-dashboard": "Saving Agent Dashboard",
+
+    "/documents/dashboard": "Document Management Dashboard",
+    "/documents/upload": "Upload Document",
+    "/documents/library": "Document Library",
+    "/documents/categories": "Document Categories",
+    "/documents/folders": "Folder Manager",
+    "/documents/approvals": "Document Approvals",
+    "/documents/versions": "Document Version Control",
+    "/documents/archive": "Document Archive",
+    "/documents/reports": "Document Reports",
+    "/documents/settings": "Document Settings",
+
+    "/knowledge/dashboard": "Knowledge Centre Dashboard",
+    "/knowledge/training-topics": "Training Topics",
+    "/knowledge/manuals": "Training Manuals",
+    "/knowledge/policies": "Policies",
+    "/knowledge/templates": "Templates",
+    "/knowledge/downloads": "Downloads",
+    "/knowledge/videos": "Training Videos",
+    "/knowledge/best-practices": "Best Practices",
+    "/knowledge/faqs": "Frequently Asked Questions",
+    "/knowledge/settings": "Knowledge Centre Settings"
+  };
+
+  const title = pageNames[location.pathname] || "VillageLink Module";
+
+  return (
+    <div className="module-page">
+      <h1>{title}</h1>
+      <p>
+        This module has been registered in VillageLink MIS.
+        Its full functionality will be developed in the next stages.
+      </p>
+    </div>
+  );
+}
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
 
-        {/* Public Routes */}
+        {/* PUBLIC ROUTES */}
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
 
-        {/* Protected Routes */}
+        {/* APPLICATION LAYOUT */}
         <Route path="/" element={<MainLayout />}>
 
           <Route index element={<Dashboard />} />
 
-          {/* Administration */}
+          {/* ROLE DASHBOARDS */}
+          <Route path="organization-dashboard" element={<AdditionalModulePage />} />
+          <Route path="project-dashboard" element={<AdditionalModulePage />} />
+          <Route path="program-dashboard" element={<AdditionalModulePage />} />
+          <Route path="me-dashboard" element={<AdditionalModulePage />} />
+          <Route path="field-dashboard" element={<AdditionalModulePage />} />
+          <Route path="saving-agent-dashboard" element={<AdditionalModulePage />} />
+
+          {/* ADMINISTRATION */}
           <Route path="organizations" element={<Organizations />} />
           <Route path="projects" element={<Projects />} />
           <Route path="countries" element={<Countries />} />
@@ -68,7 +123,7 @@ function AppRouter() {
           <Route path="users" element={<Users />} />
           <Route path="roles" element={<Roles />} />
 
-          {/* VSLA */}
+          {/* VSLA MANAGEMENT */}
           <Route path="groups" element={<Groups />} />
           <Route path="members" element={<Members />} />
           <Route path="meetings" element={<Meetings />} />
@@ -79,15 +134,37 @@ function AppRouter() {
           <Route path="livelihood" element={<Livelihood />} />
           <Route path="cash-count" element={<CashCount />} />
 
-          {/* Reports */}
-          <Route path="reports" element={<Reports />} />
+          {/* DOCUMENT MANAGEMENT */}
+          <Route path="documents/dashboard" element={<AdditionalModulePage />} />
+          <Route path="documents/upload" element={<AdditionalModulePage />} />
+          <Route path="documents/library" element={<AdditionalModulePage />} />
+          <Route path="documents/categories" element={<AdditionalModulePage />} />
+          <Route path="documents/folders" element={<AdditionalModulePage />} />
+          <Route path="documents/approvals" element={<AdditionalModulePage />} />
+          <Route path="documents/versions" element={<AdditionalModulePage />} />
+          <Route path="documents/archive" element={<AdditionalModulePage />} />
+          <Route path="documents/reports" element={<AdditionalModulePage />} />
+          <Route path="documents/settings" element={<AdditionalModulePage />} />
 
-          {/* Settings */}
+          {/* KNOWLEDGE CENTRE */}
+          <Route path="knowledge/dashboard" element={<AdditionalModulePage />} />
+          <Route path="knowledge/training-topics" element={<AdditionalModulePage />} />
+          <Route path="knowledge/manuals" element={<AdditionalModulePage />} />
+          <Route path="knowledge/policies" element={<AdditionalModulePage />} />
+          <Route path="knowledge/templates" element={<AdditionalModulePage />} />
+          <Route path="knowledge/downloads" element={<AdditionalModulePage />} />
+          <Route path="knowledge/videos" element={<AdditionalModulePage />} />
+          <Route path="knowledge/best-practices" element={<AdditionalModulePage />} />
+          <Route path="knowledge/faqs" element={<AdditionalModulePage />} />
+          <Route path="knowledge/settings" element={<AdditionalModulePage />} />
+
+          {/* REPORTS AND SETTINGS */}
+          <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings />} />
 
         </Route>
 
-        {/* 404 */}
+        {/* 404 PAGE */}
         <Route path="*" element={<NotFound />} />
 
       </Routes>

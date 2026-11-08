@@ -1,54 +1,64 @@
-const API_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
+import { supabase } from "../lib/supabase";
+
+// Sign in using Supabase Authentication
 export const login = async (email, password) => {
-  const response = await fetch(`${API_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
   });
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Login failed");
+  if (error) {
+    throw new Error(error.message);
   }
 
-  if (data.token) {
-    localStorage.setItem("token", data.token);
+  // Retrieve the user's VillageLink profile
+  const { data: profile, error: profileError } = await supabase
+    .from("users")
+    .select(`
+      id,
+      auth_user_id,
+      full_name,
+      email,
+      role_id,
+      organization_id,
+      status
+    `)
+    .eq("auth_user_id", data.user.id)
+    .single();
+
+  if (profileError) {
+    await supabase.auth.signOut();
+    throw new Error("Your VillageLink user profile could not be loaded.");
   }
 
-  if (data.user) {
-    localStorage.setItem("user", JSON.stringify(data.user));
+  if (profile.status !== "active") {
+    await supabase.auth.signOut();
+    throw new Error("Your VillageLink account is not active.");
   }
 
-  return data;
+  return {
+    session: data.session,
+    user: profile,
+  };
 };
 
-export const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+// Sign out
+export const logout = async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    throw new Error(error.message);
+  }
 };
 
-export const getCurrentUser = () => {
-  const user = localStorage.getItem("user");
+// Get current authenticated session
+export const getCurrentUser = async () => {
+  const { data, error } = await supabase.auth.getSession();
 
-  if (!user) {
+  if (error || !data.session) {
     return null;
   }
 
-  try {
-    return JSON.parse(user);
-  } catch {
-    return null;
-  }
-};
-
-export const getToken = () => {
-  return localStorage.getItem("token");
+  return data.session.user;
 };

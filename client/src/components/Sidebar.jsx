@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+
+import { NavLink } from "react-router-dom";
 
 import {
   FaHome,
@@ -38,290 +39,230 @@ import {
 } from "react-icons/fa";
 
 function Sidebar() {
+  const linkClass = ({ isActive }) =>
+    `sidebar-link ${isActive ? "active" : ""}`;
 
   return (
-
-    <div className="sidebar">
+    <aside className="sidebar">
 
       <h2>VillageLink MIS</h2>
 
-      {/* ====================================== */}
-      {/* EXECUTIVE */}
-      {/* ====================================== */}
+      <nav className="sidebar-navigation">
 
-      <h4>Executive</h4>
+        {/* EXECUTIVE */}
+        <h4>Executive</h4>
 
-      <nav>
-
-        <Link to="/">
+        <NavLink to="/" end className={linkClass}>
           <FaHome /> Executive Dashboard
-        </Link>
+        </NavLink>
 
-      </nav>
+        {/* ROLE DASHBOARDS */}
+        <h4>Role Dashboards</h4>
 
-      {/* ====================================== */}
-      {/* ROLE DASHBOARDS */}
-      {/* ====================================== */}
-
-      <h4>Role Dashboards</h4>
-
-      <nav>
-
-        <Link to="/organization-dashboard">
+        <NavLink to="/organization-dashboard" className={linkClass}>
           <FaTachometerAlt /> Organization Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/project-dashboard">
+        <NavLink to="/project-dashboard" className={linkClass}>
           <FaTachometerAlt /> Project Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/program-dashboard">
+        <NavLink to="/program-dashboard" className={linkClass}>
           <FaTachometerAlt /> Program Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/me-dashboard">
+        <NavLink to="/me-dashboard" className={linkClass}>
           <FaTachometerAlt /> M&E Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/field-dashboard">
+        <NavLink to="/field-dashboard" className={linkClass}>
           <FaTachometerAlt /> Field Officer Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/saving-agent-dashboard">
+        <NavLink to="/saving-agent-dashboard" className={linkClass}>
           <FaTachometerAlt /> Saving Agent Dashboard
-        </Link>
+        </NavLink>
 
-      </nav>
+        {/* ADMINISTRATION */}
+        <h4>Administration</h4>
 
-      {/* ====================================== */}
-      {/* ADMINISTRATION */}
-      {/* ====================================== */}
-
-      <h4>Administration</h4>
-
-      <nav>
-
-        <Link to="/organizations">
+        <NavLink to="/organizations" className={linkClass}>
           <FaBuilding /> Organizations
-        </Link>
+        </NavLink>
 
-        <Link to="/countries">
+        <NavLink to="/countries" className={linkClass}>
           <FaGlobe /> Countries
-        </Link>
+        </NavLink>
 
-        <Link to="/projects">
+        <NavLink to="/projects" className={linkClass}>
           <FaProjectDiagram /> Projects
-        </Link>
+        </NavLink>
 
-        <Link to="/users">
+        <NavLink to="/users" className={linkClass}>
           <FaUserCog /> Users
-        </Link>
+        </NavLink>
 
-        <Link to="/roles">
+        <NavLink to="/roles" className={linkClass}>
           <FaUserShield /> Role Management
-        </Link>
+        </NavLink>
 
-      </nav>
+        {/* LOCATION MANAGEMENT */}
+        <h4>Location Management</h4>
 
-      {/* ====================================== */}
-      {/* LOCATION */}
-      {/* ====================================== */}
-
-      <h4>Location Management</h4>
-
-      <nav>
-
-        <Link to="/districts">
+        <NavLink to="/districts" className={linkClass}>
           <FaMapMarkedAlt /> Districts
-        </Link>
+        </NavLink>
 
-        <Link to="/clans">
+        <NavLink to="/clans" className={linkClass}>
           <FaMap /> Clans
-        </Link>
+        </NavLink>
 
-        <Link to="/communities">
+        <NavLink to="/communities" className={linkClass}>
           <FaPlaceOfWorship /> Communities
-        </Link>
+        </NavLink>
 
-      </nav>
+        {/* VSLA MANAGEMENT */}
+        <h4>VSLA Management</h4>
 
-      {/* ====================================== */}
-      {/* VSLA */}
-      {/* ====================================== */}
-
-      <h4>VSLA Management</h4>
-
-      <nav>
-
-        <Link to="/groups">
+        <NavLink to="/groups" className={linkClass}>
           <FaUsers /> Groups
-        </Link>
+        </NavLink>
 
-        <Link to="/members">
+        <NavLink to="/members" className={linkClass}>
           <FaUserFriends /> Members
-        </Link>
+        </NavLink>
 
-        <Link to="/leadership">
+        <NavLink to="/leadership" className={linkClass}>
           <FaUserTie /> Leadership
-        </Link>
+        </NavLink>
 
-        <Link to="/meetings">
+        <NavLink to="/meetings" className={linkClass}>
           <FaCalendarAlt /> Weekly Meetings
-        </Link>
+        </NavLink>
 
-        <Link to="/monitoring">
+        <NavLink to="/monitoring" className={linkClass}>
           <FaClipboardCheck /> Monitoring
-        </Link>
+        </NavLink>
 
-        <Link to="/cashcount">
+        <NavLink to="/cash-count" className={linkClass}>
           <FaCashRegister /> Cash Count
-        </Link>
+        </NavLink>
 
-        <Link to="/savings">
+        <NavLink to="/savings" className={linkClass}>
           <FaPiggyBank /> Savings
-        </Link>
+        </NavLink>
 
-        <Link to="/loans">
+        <NavLink to="/loans" className={linkClass}>
           <FaMoneyCheckAlt /> Loans
-        </Link>
+        </NavLink>
 
-        <Link to="/livelihood">
+        <NavLink to="/livelihood" className={linkClass}>
           <FaSeedling /> Livelihood
-        </Link>
+        </NavLink>
 
-      </nav>
-            {/* ====================================== */}
-      {/* DOCUMENT MANAGEMENT */}
-      {/* ====================================== */}
+        {/* DOCUMENT MANAGEMENT */}
+        <h4>Document Management</h4>
 
-      <h4>Document Management</h4>
-
-      <nav>
-
-        <Link to="/documents/dashboard">
+        <NavLink to="/documents/dashboard" className={linkClass}>
           <FaFolderOpen /> Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/upload">
+        <NavLink to="/documents/upload" className={linkClass}>
           <FaFileUpload /> Upload Document
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/library">
+        <NavLink to="/documents/library" className={linkClass}>
           <FaFolder /> Document Library
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/categories">
+        <NavLink to="/documents/categories" className={linkClass}>
           <FaTags /> Categories
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/folders">
+        <NavLink to="/documents/folders" className={linkClass}>
           <FaFolder /> Folder Manager
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/approvals">
+        <NavLink to="/documents/approvals" className={linkClass}>
           <FaCheckCircle /> Approvals
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/versions">
+        <NavLink to="/documents/versions" className={linkClass}>
           <FaHistory /> Version Control
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/archive">
+        <NavLink to="/documents/archive" className={linkClass}>
           <FaArchive /> Archive
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/reports">
+        <NavLink to="/documents/reports" className={linkClass}>
           <FaChartBar /> Reports
-        </Link>
+        </NavLink>
 
-        <Link to="/documents/settings">
+        <NavLink to="/documents/settings" className={linkClass}>
           <FaCog /> Settings
-        </Link>
+        </NavLink>
 
-      </nav>
+        {/* KNOWLEDGE CENTRE */}
+        <h4>Knowledge Centre</h4>
 
-      {/* ====================================== */}
-      {/* KNOWLEDGE CENTRE */}
-      {/* ====================================== */}
-
-      <h4>Knowledge Centre</h4>
-
-      <nav>
-
-        <Link to="/knowledge/dashboard">
+        <NavLink to="/knowledge/dashboard" className={linkClass}>
           <FaBook /> Dashboard
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/training-topics">
+        <NavLink to="/knowledge/training-topics" className={linkClass}>
           <FaBook /> Training Topics
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/manuals">
+        <NavLink to="/knowledge/manuals" className={linkClass}>
           <FaFileAlt /> Manuals
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/policies">
+        <NavLink to="/knowledge/policies" className={linkClass}>
           <FaFileAlt /> Policies
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/templates">
+        <NavLink to="/knowledge/templates" className={linkClass}>
           <FaFileAlt /> Templates
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/downloads">
+        <NavLink to="/knowledge/downloads" className={linkClass}>
           <FaDownload /> Downloads
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/videos">
+        <NavLink to="/knowledge/videos" className={linkClass}>
           <FaVideo /> Videos
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/best-practices">
+        <NavLink to="/knowledge/best-practices" className={linkClass}>
           <FaAward /> Best Practices
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/faqs">
+        <NavLink to="/knowledge/faqs" className={linkClass}>
           <FaQuestionCircle /> FAQs
-        </Link>
+        </NavLink>
 
-        <Link to="/knowledge/settings">
+        <NavLink to="/knowledge/settings" className={linkClass}>
           <FaCog /> Settings
-        </Link>
+        </NavLink>
 
-      </nav>
+        {/* REPORTS */}
+        <h4>Reports</h4>
 
-      {/* ====================================== */}
-      {/* REPORTS */}
-      {/* ====================================== */}
-
-      <h4>Reports</h4>
-
-      <nav>
-
-        <Link to="/reports">
+        <NavLink to="/reports" className={linkClass}>
           <FaChartBar /> Reports
-        </Link>
+        </NavLink>
 
-      </nav>
+        {/* SYSTEM */}
+        <h4>System</h4>
 
-      {/* ====================================== */}
-      {/* SYSTEM */}
-      {/* ====================================== */}
-
-      <h4>System</h4>
-
-      <nav>
-
-        <Link to="/settings">
+        <NavLink to="/settings" className={linkClass}>
           <FaCog /> Settings
-        </Link>
+        </NavLink>
 
       </nav>
-
-    </div>
-
+    </aside>
   );
-
 }
 
 export default Sidebar;
